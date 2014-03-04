@@ -1,36 +1,30 @@
-# grunt-image-resize
+# [gulp](https://github.com/wearefractal/gulp)-image-resize 
 
-> Resizing images made easy - thanks to ImageMagick.
+> Resizing images made easy - thanks to [GraphicsMagick](http://www.graphicsmagick.org/) or [ImageMagick](http://www.imagemagick.org/).
 
-## Getting Started
-This plugin requires Grunt `~0.4.1` and ImageMagick.
+## Install
 
-### Grunt
-If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
+Install with [npm](https://npmjs.org/package/gulp-image-resize)
 
-```shell
-npm install grunt-image-resize --save-dev
+```
+npm install --save-dev gulp-image-resize
 ```
 
-One the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
-
-```js
-grunt.loadNpmTasks('grunt-image-resize');
-```
-
-### ImageMagick
-Make sure ImageMagick is installed on your system and properly set up in your `PATH`.
+### GraphicsMagick or ImageMagick
+Make sure GraphicsMagick or ImageMagick is installed on your system and properly set up in your `PATH`.
 
 Ubuntu:
 
 ```shell
-$ apt-get install imagemagick
+apt-get install imagemagick
+apt-get install graphicsmagick
 ```
 
 Mac OS X (using [Homebrew](http://brew.sh/)):
 
 ```shell
-$ brew install imagemagick
+brew install imagemagick
+brew install graphicsmagick
 ```
 
 Windows & others: 
@@ -39,134 +33,124 @@ Windows & others:
 
 Confirm that ImageMagick is properly set up by executing `convert -help` in a terminal.
 
-## The "image_resize" task
 
-### Overview
-In your project's Gruntfile, add a section named `image_resize` to the data object passed into `grunt.initConfig()`.
+## Example
 
 ```js
-grunt.initConfig({
-  image_resize: {
-    options: {
-      width: 100,
-      height: 100,
-      overwrite: true
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
-})
+var gulp = require('gulp');
+var imageResize = require('gulp-image-resize');
+
+gulp.task('default', function () {
+  gulp.src('test.png')
+    .pipe(imageResize({ 
+      width : 100,
+      height : 100,
+      crop : true,
+      upscale : false
+    }))
+    .pipe(gulp.dest('dist'));
+});
 ```
 
-### Options
+## API
+
+### imageResize(options)
 
 #### options.width
+
 Type: `Number`
 Default value: `0` (only if height is defined)
 
-A number value that is passed as pixel value to imagemagick.
+A number pixel value that is the target width.
+
 
 #### options.height
+
 Type: `Number`
 Default value: `0` (only if width is defined)
 
-A number value that is passed as pixel value to imagemagick.
+A number pixel value that is the target height.
 
-#### options.overwrite
-Type: `Boolean`
-Default value: `true`
-
-Determines whether file that already exist under this destination will be overwritten.
 
 #### options.upscale
+
 Type: `Boolean`
 Default value: `false`
 
 Determines whether images will be upscaled. If set to `false` (default), image will be copied instead of resized if it would be upscaled by resizing.
 
+
 #### options.crop
+
 Type: `Boolean`
 Default value: `false`
 
 Determines whether images will be cropped after resizing to exactly match `options.width` and `options.height`.
 
+
 #### options.gravity
+
 Type: `String`
 Default value: `Center`
 Possible values: `NorthWest`, `North`, `NorthEast`, `West`, `Center`, `East`, `SouthWest`, `South`, `SouthEast`
 
 When cropping images this sets the image gravity. Doesn't have any effect, if `options.crop` is `false`.
 
-#### options.concurrency
-Type: `Number`
-Default value: Number of CPUs
-
-Determines how many resize operations are executed in parallel.
 
 #### options.quality
+
 Type: `Number`
 Default value: `1`
 
 Determines the output quality of the resized image. Ranges from `0` (really bad) to `1` (almost lossless). Only applies to jpg images.
 
-### Usage Examples
 
-#### Default Options
-In this example, the default options are used to resize an image to 100px width. So if the `test/fixtures/wikipedia.png` file has a width of 500px, the generated result would be a 100px wide `tmp/wikipedia.png`.
+#### options.format
 
+Type: `String`
+Default value: Format of the input file
+Possible values: `gif`, `png`, `jpeg` etc.
+
+Override the output format of the processed file.
+
+
+#### options.imageMagick
+
+Type: `Boolean`
+Default value: `false`
+
+Set to `true` when using ImageMagick instead of GraphicsMagick.
+
+
+## More Examples
 ```js
-grunt.initConfig({
-  image_resize: {
-    resize: {
-      options: {
-        width: 100
-      },
-      files: {
-        'tmp/wikipedia.png': 'test/fixtures/wikipedia.png'
-      }
-    }
-  }
-})
+// Converting from png to jpeg. No resizing.
+gulp.task('convert_png', function () {
+  return gulp.src('test.png')
+    .pipe(imageResize({ format : 'jpeg' }))
+    .pipe(gulp.dest('dist'));
+});
+
+// Only specify one dimension. Output image won't exceed this value.
+gulp.task('width', function () {
+  gulp.src('test.png')
+    .pipe(imageResize({ 
+      width : 100
+    }))
+    .pipe(gulp.dest('dist'));
+});
 ```
 
-#### Prevent overwriting
-In this example, we prevent the destination file from being overwritten if it already exists. It the file `tmp/wikipedia.png` already exists, for example because we just ran the task configuration above, this would **not** overwrite `tmp/wikipedia.png`. The file `tmp/wikipedia.png` would still be 100px wide.
 
-```js
-grunt.initConfig({
-  image_resize: {
-    no_overwrite: {
-      options: {
-        width: 50,
-        overwrite: false
-      },
-      files: {
-        'tmp/wikipedia.png': 'test/fixtures/wikipedia.png'
-      }
-    }
-  }
-})
-```
+## Tests
 
-#### Allow upscaling
-By default, the task does not resize images which would be upscaled. It only allows downscaling. You can allow upscaling by setting the `upscale` option to `true`. Otherwise images will copied instead of resized when they would be upscaled by resizing.
+1. You need both ImageMagick and GraphicsMagick installed on your system to run the tests.
+2. Install all npm dev dependencies `npm install`
+3. Install gulp globally `npm install -g gulp`
+4. Run `gulp test`
 
-```js
-grunt.initConfig({
-  image_resize: {
-    no_overwrite: {
-      options: {
-        width: 600,
-        upscale: true
-      },
-      files: {
-        'tmp/wikipedia.png': 'test/fixtures/wikipedia.png'
-      }
-    }
-  }
-})
-```
 
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+## License
+
+MIT © [scalable minds](http://scm.io)
+
