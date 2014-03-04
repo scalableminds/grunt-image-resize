@@ -143,6 +143,46 @@ gulp.task('width', function () {
 });
 ```
 
+## Recommended modules
+
+* [concurrent-transform](https://github.com/segmentio/concurrent-transform): parallelize image resizing
+```js
+var parallel = require("concurrent-transform");
+var os = require("os");
+
+gulp.task("parallel", function () {
+  gulp.src("src/**/*.{jpg,png}")
+    .pipe(parallel(
+      imageResize({ width : 100 }),
+      os.cpus().length
+    ))
+    .pipe(gulp.dest("dist"));
+});
+```
+
+* [gulp-changed](https://www.npmjs.org/package/gulp-changed/): only resize changed images
+```js
+var changed = require("gulp-changed");
+
+gulp.task("changed", function () {
+  gulp.src("src/**/*.{jpg,png}")
+    .pipe(changed("dist"))
+    .pipe(imageResize({ width : 100 }))
+    .pipe(gulp.dest("dist"));
+});
+```
+
+* [gulp-rename](https://www.npmjs.org/package/gulp-rename/): add a suffix or prefix
+```js
+var rename = require("gulp-rename");
+
+gulp.task("suffix", function () {
+  gulp.src("src/**/*.{jpg,png}")
+    .pipe(imageResize({ width : 100 }))
+    .pipe(rename(function (path) { path.basename += "-thumbnail"; }))
+    .pipe(gulp.dest("dist"));
+});
+```
 
 ## Tests
 

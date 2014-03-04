@@ -1,11 +1,13 @@
 var gulp     = require("gulp");
-var mocha = require("gulp-mocha");
+var mocha    = require("gulp-mocha");
 var clean    = require("gulp-clean");
 var jshint   = require("gulp-jshint");
 var stylish  = require("jshint-stylish");
 var sequence = require("run-sequence");
 
 var imageResize = require("./index.js");
+
+
 
 gulp.task("jshint", function () {
   gulp.src(["gulpfile.js", "index.js", "test/*.js"])
@@ -22,6 +24,7 @@ gulp.task("mocha", ["image_resize"], function () {
   return gulp.src("test/*_test.js")
     .pipe(mocha({ reporter: "nyan" }));
 });
+
 
 
 var resizeTasks = [];
@@ -100,8 +103,8 @@ resize("test/fixtures/wikipedia.png", "convert", {
 });
 
 
-gulp.task("image_resize", resizeTasks);
 
+gulp.task("image_resize", resizeTasks);
 
 gulp.task("test", function(callback) {
   sequence("clean", "jshint", "mocha", callback);
