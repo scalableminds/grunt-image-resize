@@ -71,14 +71,7 @@ module.exports = function (options) {
             (options.width && size.width < options.width) ||
             (options.height && size.height < options.height);
 
-          if (!options.upscale && isUpscaled) {
-
-            util.log(
-              "Skip resizing of " + file.relative + ", because image would be upscaled.\n" +
-              "To allow upscaling, set option 'upscale' to true."
-            );
-            
-          } else {
+          if (options.upscale || !isUpscaled) {
 
             if (isUpscaled) {
               if (!options.height) {
