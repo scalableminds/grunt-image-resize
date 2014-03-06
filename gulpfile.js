@@ -22,7 +22,7 @@ gulp.task("clean", function () {
 
 gulp.task("mocha", ["image_resize"], function () {
   return gulp.src("test/*_test.js")
-    .pipe(mocha({ reporter: "nyan" }));
+    .pipe(mocha({ reporter: "spec" }));
 });
 
 

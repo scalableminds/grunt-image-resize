@@ -18,7 +18,7 @@ var PluginError = util.PluginError;
 
 const PLUGIN_NAME = "image-resize";
 
-module.exports = function (options) {
+module.exports = function imageResizer(options) {
 
   options = _.defaults(options, {
     overwrite   : true,
