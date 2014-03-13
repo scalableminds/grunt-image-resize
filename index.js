@@ -6,7 +6,7 @@
  * Licensed under the MIT license.
  */
 
-var gm          = require("gm");
+var gm          = require("gulp-gm");
 var async       = require("async");
 var path        = require("path");
 var os          = require("os");
@@ -16,26 +16,19 @@ var stream      = require("stream");
 var util        = require("gulp-util");
 var PluginError = util.PluginError;
 
-const PLUGIN_NAME = "image-resize";
+const PLUGIN_NAME = "gulp-image-resize";
 
 module.exports = function imageResizer(options) {
 
   options = _.defaults(options, {
     overwrite   : true,
     upscale     : false,
-    concurrency : os.cpus().length,
     crop        : false,
     gravity     : "Center",
     quality     : 1,
     imageMagick : false,
     format      : null
   });
-
-  var _gm = gm;
-
-  if (options.imageMagick) {
-    _gm = gm.subClass({ imageMagick : true });
-  }
 
   if (options.height == null && options.width) {
     options.height = null;
@@ -44,30 +37,19 @@ module.exports = function imageResizer(options) {
     options.width = null;
   }
 
-  return through.obj(function (file, enc, done) {
-
-    if (file.isNull()) {
-      return done(null, file);
-    }
-
-
-    var format = options.format || path.extname(file.path).substring(1);
+  return gm(function(gmfile, done) {
 
     async.waterfall([
 
       function (callback) {
-        var passThrough = new stream.PassThrough();
-        _gm(file.pipe(passThrough), file.path).size(callback);
+        gmfile.size(callback);
       },
 
       function (size, callback) {
-        
-        var passThrough = new stream.PassThrough();
-        var processor = _gm(file.pipe(passThrough), file.path);
 
         if (options.height != null || options.width != null) {
 
-          var isUpscaled = 
+          var isUpscaled =
             (options.width && size.width < options.width) ||
             (options.height && size.height < options.height);
 
@@ -83,12 +65,12 @@ module.exports = function imageResizer(options) {
             }
 
             if (options.crop) {
-              processor = processor
+              gmfile = gmfile
                 .resize(options.width, options.height, "^")
                 .gravity(options.gravity)
                 .crop(options.width, options.height);
             } else {
-              processor = processor
+              gmfile = gmfile
                 .resize(options.width, options.height);
             }
 
@@ -96,24 +78,21 @@ module.exports = function imageResizer(options) {
 
         }
 
-        file.path = util.replaceExtension(file.path, "." + format);
-        processor
-          .quality(Math.floor(options.quality * 100))
-          .toBuffer(format, callback);
+        if (options.format) {
+          gmfile = gmfile
+            .setFormat(options.format);
+        }
 
+        if (options.quality !== 1) {
+          gmfile = gmfile.quality(Math.floor(options.quality * 100));
+        }
+
+        callback(null, gmfile);
       }
 
-    ], function (err, buffer) {
+    ], done);
 
-      if (err) {
-        done(new PluginError(PLUGIN_NAME, err, { showStack : true }));
-      } else {
-        file.contents = buffer;
-        done(null, file);
-      }
-
-    });
-  });
+  }, { imageMagick : options.imageMagick });
 
 };
 

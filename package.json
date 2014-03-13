@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "gulp": "~3.5.5",
+    "gm": "~1.14.2",
     "gulp-clean": "~0.2.4",
     "gulp-jshint": "~1.5.0",
     "run-sequence": "~0.3.6",
@@ -36,7 +37,7 @@
   ],
   "dependencies": {
     "async": "~0.2.8",
-    "gm": "~1.14.2",
+    "gulp-gm": "~0.0.3",
     "through2": "~0.4.1",
     "gulp-util": "~2.2.14",
     "lodash": "~2.4.1"

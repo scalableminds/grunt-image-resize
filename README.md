@@ -1,4 +1,4 @@
-# [gulp](https://github.com/wearefractal/gulp)-image-resize
+# [gulp](https://github.com/wearefractal/gulp)-image-resize [![Build Status](https://drone.io/github.com/scalableminds/gulp-image-resize/status.png)](https://drone.io/github.com/scalableminds/gulp-image-resize/latest)
 
 
 > Resizing images made easy - thanks to [GraphicsMagick](http://www.graphicsmagick.org/) or [ImageMagick](http://www.imagemagick.org/).
