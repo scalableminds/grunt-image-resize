@@ -115,6 +115,26 @@ Possible values: `gif`, `png`, `jpeg` etc.
 
 Override the output format of the processed file.
 
+#### options.filter
+
+Type: `String`
+Possible values: `Point`, `Box`, `Triangle`, `Hermite`, `Hanning`, `Hamming`, `Blackman`, `Gaussian`, `Quadratic`, `Cubic`, `Catrom`, `Mitchell`, `Lanczos`, `Bessel`, `Sinc`.
+
+Set the filter to use when resizing (e.g. Catrom is very good for reduction, while hermite is good for enlargement).
+
+#### options.sharpen
+
+Type: `Boolean`
+Default value: `false`
+
+Set to `true` to apply a slight unsharp mask after resizing.
+
+#### options.samplingFactor
+
+Type: `Array[Cr, Cb]`
+Possible values: `[2, 2]` for 4:2:2, `[1, 1]` for 4:1:1
+
+Define chroma subsampling
 
 #### options.imageMagick
 

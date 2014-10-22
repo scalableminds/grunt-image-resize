@@ -26,6 +26,7 @@ module.exports = function imageResizer(options) {
     crop        : false,
     gravity     : "Center",
     quality     : 1,
+    sharpen     : false,
     imageMagick : false,
     format      : null
   });
@@ -46,6 +47,10 @@ module.exports = function imageResizer(options) {
       },
 
       function (size, callback) {
+
+        if (options.filter != null) {
+          gmfile = gmfile.filter(options.filter);
+        }
 
         if (options.height != null || options.width != null) {
 
@@ -85,6 +90,16 @@ module.exports = function imageResizer(options) {
 
         if (options.quality !== 1) {
           gmfile = gmfile.quality(Math.floor(options.quality * 100));
+        }
+
+
+        if (options.samplingFactor != null) {
+          gmfile = gmfile
+            .samplingFactor(options.samplingFactor[0], options.samplingFactor[1]);
+        }
+
+        if (options.sharpen) {
+          gmfile = gmfile.unsharp('1.5x1+0.7+0.02');
         }
 
         callback(null, gmfile);
