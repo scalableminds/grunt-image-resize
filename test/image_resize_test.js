@@ -28,7 +28,7 @@ var createTest = function(key, filename) {
 
       function(callback) {
         fs.exists(expectedFile, function (expectedFileExists) {
-          assert(expectedfileexists, expectedfile + " is missing");
+          assert(expectedFileExists, expectedFile + " is missing");
           callback();
         });
       },
@@ -154,33 +154,17 @@ describe("sharpen", function () {
 describe("filter", function () {
     var filename = "Rhododendron.jpg";
     it("should reduce Rhododendron image using catrom filter", function (callback) {
-        async.map([
-            path.join(TMP_FOLDER, "filter", filename),
-            path.join(EXPECTED_FOLDER, "filter", filename)
-        ], fs.stat, function(err, results) {
-            if (err) {
-                throw err;
-            } else {
-                assert(results[1].size == results[0].size, "size doesn't match");
-                callback();
-            }
-        });
+        var tmp = path.join(TMP_FOLDER, "filter", filename);
+        var expected = path.join(EXPECTED_FOLDER, "filter", filename);
+        gm().compare(tmp, expected, 0.1, callback);
     });
 });
 
 describe("samplingFactor", function () {
     var filename = "Rhododendron.jpg";
     it("should resize the Rhododendron image with a sampling factor of 4:2:2", function (callback) {
-        async.map([
-            path.join(TMP_FOLDER, "samplingFactor", filename),
-            path.join(EXPECTED_FOLDER, "samplingFactor", filename)
-        ], fs.stat, function(err, results) {
-            if (err) {
-                throw err;
-            } else {
-                assert(results[1].size == results[0].size, "size doesn't match");
-                callback();
-            }
-        });
+        var tmp = path.join(TMP_FOLDER, "samplingFactor", filename);
+        var expected = path.join(EXPECTED_FOLDER, "samplingFactor", filename);
+        gm().compare(tmp, expected, 0.1, callback);
     });
 });
