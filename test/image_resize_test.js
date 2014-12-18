@@ -9,7 +9,10 @@ var assert = require("assert");
 const TMP_FOLDER = "tmp/";
 const EXPECTED_FOLDER = "test/expected/";
 
-var createTest = function(key, filename) {
+var createTest = function(key, filename, comparisonTolerance) {
+  if (comparisonTolerance === undefined) {
+    comparisonTolerance = 0.1;
+  }
   return function(callback) {
 
     var features, expected;
@@ -94,6 +97,18 @@ describe("crop", function () {
   it("should crop with gravity", createTests("crop_gravity", "wikipedia.png"));
 });
 
+describe("sharpen", function () {
+  it("should sharpen the Rhododendron image", createTests("sharpen", "Rhododendron.jpg", 0));
+});
+
+describe("filter", function () {
+  it("should reduce Rhododendron image using catrom filter", createTests("filter", "Rhododendron.jpg", 0));
+});
+
+describe("samplingFactor", function () {
+  it("should resize the Rhododendron image with a sampling factor of 4:2:2", createTests("samplingFactor", "Rhododendron.jpg", 0));
+});
+
 describe("convert", function () {
   it("should convert png to jpg", function (callback) {
 
@@ -132,39 +147,4 @@ describe("quality", function() {
       }
     });
   });
-});
-
-describe("sharpen", function () {
-    var filename = "Rhododendron.jpg";
-    it("should sharpen the Rhododendron image", function (callback) {
-        async.map([
-            path.join(TMP_FOLDER, "sharpen", filename),
-            path.join(EXPECTED_FOLDER, "sharpen", filename)
-        ], fs.stat, function(err, results) {
-            if (err) {
-                throw err;
-            } else {
-                assert(results[1].size == results[0].size, "size doesn't match");
-                callback();
-            }
-        });
-    });
-});
-
-describe("filter", function () {
-    var filename = "Rhododendron.jpg";
-    it("should reduce Rhododendron image using catrom filter", function (callback) {
-        var tmp = path.join(TMP_FOLDER, "filter", filename);
-        var expected = path.join(EXPECTED_FOLDER, "filter", filename);
-        gm().compare(tmp, expected, 0.1, callback);
-    });
-});
-
-describe("samplingFactor", function () {
-    var filename = "Rhododendron.jpg";
-    it("should resize the Rhododendron image with a sampling factor of 4:2:2", function (callback) {
-        var tmp = path.join(TMP_FOLDER, "samplingFactor", filename);
-        var expected = path.join(EXPECTED_FOLDER, "samplingFactor", filename);
-        gm().compare(tmp, expected, 0.1, callback);
-    });
 });

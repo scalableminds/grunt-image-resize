@@ -20,7 +20,7 @@ gulp.task("clean", function () {
     .pipe(clean());
 });
 
-gulp.task("mocha", ["image_resize", "sharpen", "filter", "samplingFactor"], function () {
+gulp.task("mocha", ["image_resize"], function () {
   return gulp.src("test/*_test.js")
     .pipe(mocha({ reporter: "spec" }));
 });
@@ -98,40 +98,27 @@ resize("test/fixtures/Rhododendron.jpg", "quality", {
   quality: 0.2
 });
 
+resize("test/fixtures/Rhododendron.jpg", "sharpen", {
+  width: 600,
+  height: 0,
+  sharpen: true
+});
+
+resize("test/fixtures/Rhododendron.jpg", "filter", {
+  width: 600,
+  height: 0,
+  filter: "catrom"
+});
+
+resize("test/fixtures/Rhododendron.jpg", "samplingFactor", {
+  width: 600,
+  height: 0,
+  samplingFactor: [2,2]
+});
+
 resize("test/fixtures/wikipedia.png", "convert", {
   format: "jpg"
 });
-
-gulp.task("sharpen", function () {
-    gulp.src("test/fixtures/Rhododendron.jpg")
-        .pipe(imageResize({
-            width: 600,
-            height: 0,
-            sharpen: true
-        }))
-        .pipe(gulp.dest("tmp/sharpen"));
-});
-
-gulp.task("filter", function () {
-    gulp.src("test/fixtures/Rhododendron.jpg")
-        .pipe(imageResize({
-            width: 600,
-            height: 0,
-            filter: "catrom"
-        }))
-        .pipe(gulp.dest("tmp/filter"));
-});
-
-gulp.task("samplingFactor", function () {
-    gulp.src("test/fixtures/Rhododendron.jpg")
-        .pipe(imageResize({
-            width: 600,
-            height: 0,
-            samplingFactor: [2,2]
-        }))
-        .pipe(gulp.dest("tmp/samplingFactor"));
-});
-
 
 gulp.task("image_resize", resizeTasks);
 
