@@ -20,7 +20,7 @@ gulp.task("clean", function () {
     .pipe(clean());
 });
 
-gulp.task("mocha", ["image_resize"], function () {
+gulp.task("mocha", ["image_resize", "sharpen", "filter", "samplingFactor"], function () {
   return gulp.src("test/*_test.js")
     .pipe(mocha({ reporter: "spec" }));
 });
@@ -49,41 +49,41 @@ var resize = function(files, key, options) {
 
 
 resize([
-  "test/fixtures/gnu.jpg", 
-  "test/fixtures/wikipedia.png", 
-  "test/fixtures/Rhododendron.jpg", 
+  "test/fixtures/gnu.jpg",
+  "test/fixtures/wikipedia.png",
+  "test/fixtures/Rhododendron.jpg",
   "test/fixtures/TeslaTurbine.png"
 ], "resize", {
   width: 100
 });
 
 
-resize("test/fixtures/wikipedia.png", "upscale", { 
+resize("test/fixtures/wikipedia.png", "upscale", {
   width: 600,
   height: 0,
   upscale: true
 });
 
-resize("test/fixtures/wikipedia.png", "upscale2", { 
+resize("test/fixtures/wikipedia.png", "upscale2", {
   width: 600,
   height: 600,
   upscale: true
 });
 
-resize("test/fixtures/wikipedia.png", "no_upscale", { 
+resize("test/fixtures/wikipedia.png", "no_upscale", {
   width: 600,
   height: 0,
   upscale: false
 });
 
-resize("test/fixtures/wikipedia.png", "crop", { 
+resize("test/fixtures/wikipedia.png", "crop", {
   width: 400,
   height: 300,
   upscale: false,
   crop: true
 });
 
-resize("test/fixtures/wikipedia.png", "crop_gravity", { 
+resize("test/fixtures/wikipedia.png", "crop_gravity", {
   width: 400,
   height: 300,
   upscale: false,
@@ -91,17 +91,46 @@ resize("test/fixtures/wikipedia.png", "crop_gravity", {
   gravity: "NorthWest"
 });
 
-resize("test/fixtures/Rhododendron.jpg", "quality", { 
+resize("test/fixtures/Rhododendron.jpg", "quality", {
   width: 600,
   height: 0,
   upscale: false,
   quality: 0.2
 });
 
-resize("test/fixtures/wikipedia.png", "convert", { 
+resize("test/fixtures/wikipedia.png", "convert", {
   format: "jpg"
 });
 
+gulp.task("sharpen", function () {
+    gulp.src("test/fixtures/Rhododendron.jpg")
+        .pipe(imageResize({
+            width: 600,
+            height: 0,
+            sharpen: true
+        }))
+        .pipe(gulp.dest("tmp/sharpen"));
+});
+
+gulp.task("filter", function () {
+    gulp.src("test/fixtures/Rhododendron.jpg")
+        .pipe(imageResize({
+            width: 600,
+            height: 0,
+            filter: "catrom"
+        }))
+        .pipe(gulp.dest("tmp/filter"));
+});
+
+gulp.task("samplingFactor", function () {
+    gulp.src("test/fixtures/Rhododendron.jpg")
+        .pipe(imageResize({
+            width: 600,
+            height: 0,
+            samplingFactor: [2,2]
+        }))
+        .pipe(gulp.dest("tmp/samplingFactor"));
+});
 
 
 gulp.task("image_resize", resizeTasks);
@@ -111,4 +140,3 @@ gulp.task("test", function(callback) {
 });
 
 gulp.task("default", ["test"]);
-
