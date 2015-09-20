@@ -10,7 +10,6 @@ var gm          = require("gulp-gm");
 var async       = require("async");
 var path        = require("path");
 var os          = require("os");
-var through     = require("through2");
 var _           = require("lodash");
 var stream      = require("stream");
 var util        = require("gulp-util");
