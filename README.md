@@ -63,7 +63,7 @@ gulp.task('default', function () {
 Type: `Number`  
 Default value: `0` (only if height is defined)
 
-A number pixel value that is the target width.
+A number value that is passed as pixel or percentage value to imagemagick.
 
 
 #### options.height
@@ -71,7 +71,7 @@ A number pixel value that is the target width.
 Type: `Number`  
 Default value: `0` (only if width is defined)
 
-A number pixel value that is the target height.
+A number value that is passed as pixel or percentage value to imagemagick.
 
 
 #### options.upscale
