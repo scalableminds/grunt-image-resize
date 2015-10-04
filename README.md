@@ -124,10 +124,11 @@ Set the filter to use when resizing (e.g. Catrom is very good for reduction, whi
 
 #### options.sharpen
 
-Type: `Boolean`  
+Type: `Boolean | String`  
 Default value: `false`
 
 Set to `true` to apply a slight unsharp mask after resizing.
+Or set a string to setup the unsharp. See [gm unsharp documentation](http://www.graphicsmagick.org/GraphicsMagick.html#details-unsharp). (e.g. '0.5x0.5+0.5+0.008')
 
 #### options.samplingFactor
 

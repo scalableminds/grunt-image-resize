@@ -98,7 +98,7 @@ module.exports = function imageResizer(options) {
         }
 
         if (options.sharpen) {
-          gmfile = gmfile.unsharp('1.5x1+0.7+0.02');
+          gmfile = gmfile.unsharp(typeof options.sharpen=='string' ?  options.sharpen : '1.5x1+0.7+0.02');
         }
 
         callback(null, gmfile);
