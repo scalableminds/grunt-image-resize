@@ -8,14 +8,7 @@
 
 var gm          = require("gulp-gm");
 var async       = require("async");
-var path        = require("path");
-var os          = require("os");
 var _           = require("lodash");
-var stream      = require("stream");
-var util        = require("gulp-util");
-var PluginError = util.PluginError;
-
-const PLUGIN_NAME = "gulp-image-resize";
 
 module.exports = function imageResizer(options) {
 
@@ -91,7 +84,8 @@ module.exports = function imageResizer(options) {
         }
 
         if (options.sharpen) {
-          gmfile = gmfile.unsharp(typeof options.sharpen === 'string' ?  options.sharpen : '1.5x1+0.7+0.02');
+          options.sharpen = (typeof options.sharpen === 'string') ?  options.sharpen : '1.5x1+0.7+0.02';
+          gmfile = gmfile.unsharp(options.sharpen);
         }
 
         callback(null, gmfile);
