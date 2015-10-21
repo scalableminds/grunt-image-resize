@@ -30,13 +30,6 @@ module.exports = function imageResizer(options) {
     format      : null
   });
 
-  if (options.height == null && options.width) {
-    options.height = null;
-  }
-  if (options.width == null && options.height) {
-    options.width = null;
-  }
-
   return gm(function(gmfile, done) {
 
     async.waterfall([
@@ -54,8 +47,8 @@ module.exports = function imageResizer(options) {
         if (options.height != null || options.width != null) {
 
           var isUpscaled =
-            (options.width && size.width < options.width) ||
-            (options.height && size.height < options.height);
+            (!options.width || size.width < options.width) &&
+            (!options.height || size.height < options.height);
 
           if (options.upscale || !isUpscaled) {
 
@@ -98,7 +91,7 @@ module.exports = function imageResizer(options) {
         }
 
         if (options.sharpen) {
-          gmfile = gmfile.unsharp(typeof options.sharpen=='string' ?  options.sharpen : '1.5x1+0.7+0.02');
+          gmfile = gmfile.unsharp(typeof options.sharpen === 'string' ?  options.sharpen : '1.5x1+0.7+0.02');
         }
 
         callback(null, gmfile);

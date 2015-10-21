@@ -90,6 +90,7 @@ describe("upscale", function () {
   it("should upscale with one dimension", createTests("upscale", "wikipedia.png"));
   it("should upscale with both dimensions", createTests("upscale2", "wikipedia.png"));
   it("should not upscale", createTests("no_upscale", "wikipedia.png"));
+  it("should resize with the smallest dimension", createTests("no_upscale2", "wikipedia.png"));
 });
 
 describe("crop", function () {

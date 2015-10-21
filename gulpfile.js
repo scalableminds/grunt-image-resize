@@ -72,7 +72,12 @@ resize("test/fixtures/wikipedia.png", "upscale2", {
 
 resize("test/fixtures/wikipedia.png", "no_upscale", {
   width: 600,
-  height: 0,
+  upscale: false
+});
+
+resize("test/fixtures/wikipedia.png", "no_upscale2", {
+  width: 100,
+  height: 600,
   upscale: false
 });
 
