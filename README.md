@@ -144,6 +144,14 @@ Default value: `false`
 
 Set to `true` when using ImageMagick instead of GraphicsMagick.
 
+### options.background
+
+Type: `String`
+Possible values: `none` to keep transparency, `beige` to set beige background, `#888` for gray.
+
+Define background color (default is white), for example when converting SVG images to PNGs.
+See [gm background documentation](http://www.graphicsmagick.org/GraphicsMagick.html#details-background)
+
 
 ## More Examples
 ```js

@@ -88,6 +88,10 @@ module.exports = function imageResizer(options) {
           gmfile = gmfile.unsharp(options.sharpen);
         }
 
+        if (options.background) {
+          gmfile = gmfile.background(options.background);
+        }
+
         callback(null, gmfile);
       }
 
