@@ -41,31 +41,37 @@ module.exports = function imageResizer(_options) {
 
         if (options.height != null || options.width != null) {
 
-          var isUpscaled =
-            (!options.width || size.width < options.width) &&
-            (!options.height || size.height < options.height);
-
-          if (options.upscale || !isUpscaled) {
-
-            //if (isUpscaled) {
-              if (!options.height) {
-                options.height = Math.ceil((options.width / size.width) * size.height);
-              }
-              if (!options.width) {
-                options.width = Math.ceil((options.height / size.height) * size.width);
-              }
-            //}
-
+          // if upscale is not requested, restrict size 
+          if(!options.upscale){
+            // Math.min(undefined, 5) will return NaN, so it can stay undefined
+            options.width  = Math.min(options.width, size.width); 
+            options.height = Math.min(options.height, size.height);
+          }
+          
+          // if one dimension is not set - we fill it proportionally
+          if (!options.height) {
             if (options.crop) {
-              gmfile = gmfile
-                .resize(options.width, options.height, "^")
-                .gravity(options.gravity)
-                .crop(options.width, options.height);
+              options.height = size.height;
             } else {
-              gmfile = gmfile
-                .resize(options.width, options.height);
+              options.height = Math.ceil((options.width / size.width) * size.height);
             }
+          }
+          if (!options.width) {
+            if (options.crop) { 
+              options.width = size.width;
+            } else {
+              options.width = Math.ceil((options.height / size.height) * size.width);
+            }
+          }
 
+          if (options.crop) {
+            gmfile = gmfile
+              .resize(options.width, options.height, "^")
+              .gravity(options.gravity)
+              .crop(options.width, options.height);
+          } else {
+            gmfile = gmfile
+              .resize(options.width, options.height);
           }
 
         }

@@ -96,6 +96,7 @@ describe("upscale", function () {
 describe("crop", function () {
   it("should crop", createTests("crop", "wikipedia.png"));
   it("should crop with gravity", createTests("crop_gravity", "wikipedia.png"));
+  it("should crop with only width set", createTests("crop_width_only", "wikipedia.png")); 
 });
 
 describe("sharpen", function () {

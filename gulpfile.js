@@ -96,6 +96,11 @@ resize("test/fixtures/wikipedia.png", "crop_gravity", {
   gravity: "NorthWest"
 });
 
+resize("test/fixtures/wikipedia.png", "crop_width_only", {
+  width: 300,
+  crop: true
+});
+
 resize("test/fixtures/Rhododendron.jpg", "quality", {
   width: 600,
   height: 0,
