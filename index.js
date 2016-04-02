@@ -10,9 +10,9 @@ var gm          = require("gulp-gm");
 var async       = require("async");
 var _           = require("lodash");
 
-module.exports = function imageResizer(options) {
+module.exports = function imageResizer(_options) {
 
-  options = _.defaults(options, {
+  _options = _.defaults(_options, {
     overwrite   : true,
     upscale     : false,
     crop        : false,
@@ -33,6 +33,8 @@ module.exports = function imageResizer(options) {
 
       function (size, callback) {
 
+        var options = JSON.parse(JSON.stringify(_options)); // fix: we must make a copy, because we will change it!
+
         if (options.filter != null) {
           gmfile = gmfile.filter(options.filter);
         }
@@ -45,14 +47,14 @@ module.exports = function imageResizer(options) {
 
           if (options.upscale || !isUpscaled) {
 
-            if (isUpscaled) {
+            //if (isUpscaled) {
               if (!options.height) {
                 options.height = Math.ceil((options.width / size.width) * size.height);
               }
               if (!options.width) {
                 options.width = Math.ceil((options.height / size.height) * size.width);
               }
-            }
+            //}
 
             if (options.crop) {
               gmfile = gmfile
@@ -97,7 +99,7 @@ module.exports = function imageResizer(options) {
 
     ], done);
 
-  }, { imageMagick : options.imageMagick });
+  }, { imageMagick : _options.imageMagick });
 
 };
 
