@@ -18,6 +18,7 @@ module.exports = function imageResizer(_options) {
     crop        : false,
     gravity     : "Center",
     quality     : 1,
+    noProfile   : false,
     sharpen     : false,
     imageMagick : false,
     format      : null
@@ -41,13 +42,13 @@ module.exports = function imageResizer(_options) {
 
         if (options.height != null || options.width != null) {
 
-          // if upscale is not requested, restrict size 
+          // if upscale is not requested, restrict size
           if(!options.upscale){
             // Math.min(undefined, 5) will return NaN, so it can stay undefined
-            options.width  = Math.min(options.width, size.width); 
+            options.width  = Math.min(options.width, size.width);
             options.height = Math.min(options.height, size.height);
           }
-          
+
           // if one dimension is not set - we fill it proportionally
           if (!options.height) {
             if (options.crop) {
@@ -57,7 +58,7 @@ module.exports = function imageResizer(_options) {
             }
           }
           if (!options.width) {
-            if (options.crop) { 
+            if (options.crop) {
               options.width = size.width;
             } else {
               options.width = Math.ceil((options.height / size.height) * size.width);
@@ -100,6 +101,10 @@ module.exports = function imageResizer(_options) {
           gmfile = gmfile.background(options.background);
         }
 
+        if (options.noProfile) {
+          gmfile = gmfile.noProfile();
+        }
+
         callback(null, gmfile);
       }
 
@@ -108,4 +113,3 @@ module.exports = function imageResizer(_options) {
   }, { imageMagick : _options.imageMagick });
 
 };
-

@@ -130,6 +130,10 @@ resize("test/fixtures/wikipedia.png", "convert", {
   format: "jpg"
 });
 
+resize("test/fixtures/hamburg.jpg", "noProfile", {
+  noProfile: true
+});
+
 gulp.task("image_resize", resizeTasks);
 
 gulp.task("test", function(callback) {

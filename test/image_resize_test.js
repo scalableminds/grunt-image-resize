@@ -1,6 +1,7 @@
 /*global describe, it, before, beforeEach, after, afterEach */
 
 var gm     = require("gm");
+var gm_im  = require("gm").subClass({imageMagick: true});
 var async  = require("async");
 var fs     = require("fs");
 var path   = require("path");
@@ -96,7 +97,7 @@ describe("upscale", function () {
 describe("crop", function () {
   it("should crop", createTests("crop", "wikipedia.png"));
   it("should crop with gravity", createTests("crop_gravity", "wikipedia.png"));
-  it("should crop with only width set", createTests("crop_width_only", "wikipedia.png")); 
+  it("should crop with only width set", createTests("crop_width_only", "wikipedia.png"));
 });
 
 describe("sharpen", function () {
@@ -145,6 +146,28 @@ describe("quality", function() {
       } else {
         var epsilon = 1024;
         assert(results[1].size - epsilon < results[0].size && results[1].size + epsilon > results[0].size, "size doesn't match");
+        callback();
+      }
+    });
+  });
+});
+
+describe("noProfile", function () {
+  var filename = "hamburg.jpg";
+  it("should remove all profiles (8bim, exif, iptc, xmp...) from the Hamburg image", function (callback) {
+    async.map([
+      path.join(process.cwd(), TMP_FOLDER, "noProfile", filename),
+      path.join(process.cwd(), TMP_FOLDER, "noProfile_imagemagick", filename)
+    ], function (path, callback) {
+      gm_im(path).identify("%[profiles]", callback);
+    }, function (err, results) {
+      if (err) {
+        throw err;
+      } else {
+        results.forEach(function (format) {
+          // test passes if result contains no or empty string elements
+          assert.equal("", format, filename + " contains profiles '" + format + "''" );
+        });
         callback();
       }
     });

@@ -29,7 +29,7 @@ brew install imagemagick
 brew install graphicsmagick
 ```
 
-Windows & others: 
+Windows & others:
 
 [http://www.imagemagick.org/script/binary-releases.php](http://www.imagemagick.org/script/binary-releases.php)
 
@@ -44,7 +44,7 @@ var imageResize = require('gulp-image-resize');
 
 gulp.task('default', function () {
   gulp.src('test.png')
-    .pipe(imageResize({ 
+    .pipe(imageResize({
       width : 100,
       height : 100,
       crop : true,
@@ -137,6 +137,16 @@ Possible values: `[2, 2]` for 4:2:2, `[1, 1]` for 4:1:1
 
 Define chroma subsampling
 
+#### options.noProfile
+
+Type: `Boolean`  
+Default value: `false`
+
+Set to `true` to enforce removal of all embedded profile data like icc, exif, iptc, xmp
+and so on. If source files represent e.g. untouched camera data or images optimized for
+print this may decrease image size drastically. Therefore this is probably wanted in
+cases where thumbnails are generated for web preview purposes. For details look for parameter _+profile "*"_ in the [gm profile documentation](http://www.graphicsmagick.org/GraphicsMagick.html#details-profile).
+
 #### options.imageMagick
 
 Type: `Boolean`  
@@ -165,7 +175,7 @@ gulp.task('convert_png', function () {
 // Only specify one dimension. Output image won't exceed this value.
 gulp.task('width', function () {
   gulp.src('test.png')
-    .pipe(imageResize({ 
+    .pipe(imageResize({
       width : 100
     }))
     .pipe(gulp.dest('dist'));
@@ -224,4 +234,3 @@ gulp.task("suffix", function () {
 ## License
 
 MIT © [scalable minds](http://scm.io)
-
