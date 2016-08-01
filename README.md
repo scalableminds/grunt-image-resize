@@ -61,6 +61,7 @@ gulp.task('default', function () {
 #### options.width
 
 Type: `Number`
+
 Default value: `0` (only if height is defined)
 
 A number value that is passed as pixel or percentage value to imagemagick.
@@ -69,6 +70,7 @@ A number value that is passed as pixel or percentage value to imagemagick.
 #### options.height
 
 Type: `Number`
+
 Default value: `0` (only if width is defined)
 
 A number value that is passed as pixel or percentage value to imagemagick.
@@ -77,6 +79,7 @@ A number value that is passed as pixel or percentage value to imagemagick.
 #### options.upscale
 
 Type: `Boolean`
+
 Default value: `false`
 
 Determines whether images will be upscaled. If set to `false` (default), image will be copied instead of resized if it would be upscaled by resizing.
@@ -85,6 +88,7 @@ Determines whether images will be upscaled. If set to `false` (default), image w
 #### options.crop
 
 Type: `Boolean`
+
 Default value: `false`
 
 Determines whether images will be cropped after resizing to exactly match `options.width` and `options.height`.
@@ -93,6 +97,7 @@ Determines whether images will be cropped after resizing to exactly match `optio
 #### options.gravity
 
 Type: `String`
+
 Default value: `Center`
 Possible values: `NorthWest`, `North`, `NorthEast`, `West`, `Center`, `East`, `SouthWest`, `South`, `SouthEast`
 
@@ -102,6 +107,7 @@ When cropping images this sets the image gravity. Doesn't have any effect, if `o
 #### options.quality
 
 Type: `Number`
+
 Default value: `1`
 
 Determines the output quality of the resized image. Ranges from `0` (really bad) to `1` (almost lossless). Only applies to jpg images.
@@ -110,6 +116,7 @@ Determines the output quality of the resized image. Ranges from `0` (really bad)
 #### options.format
 
 Type: `String`
+
 Default value: Format of the input file
 Possible values: `gif`, `png`, `jpeg` etc.
 
@@ -118,6 +125,7 @@ Override the output format of the processed file.
 #### options.filter
 
 Type: `String`
+
 Possible values: `Point`, `Box`, `Triangle`, `Hermite`, `Hanning`, `Hamming`, `Blackman`, `Gaussian`, `Quadratic`, `Cubic`, `Catrom`, `Mitchell`, `Lanczos`, `Bessel`, `Sinc`
 
 Set the filter to use when resizing (e.g. Catrom is very good for reduction, while hermite is good for enlargement).
@@ -125,6 +133,7 @@ Set the filter to use when resizing (e.g. Catrom is very good for reduction, whi
 #### options.sharpen
 
 Type: `Boolean | String`
+
 Default value: `false`
 
 Set to `true` to apply a slight unsharp mask after resizing.
@@ -133,6 +142,7 @@ Or set a string to setup the unsharp. See [gm unsharp documentation](http://www.
 #### options.samplingFactor
 
 Type: `Array[Cr, Cb]`
+
 Possible values: `[2, 2]` for 4:2:2, `[1, 1]` for 4:1:1
 
 Define chroma subsampling
@@ -140,6 +150,7 @@ Define chroma subsampling
 #### options.noProfile
 
 Type: `Boolean`
+
 Default value: `false`
 
 Set to `true` to enforce removal of all embedded profile data like icc, exif, iptc, xmp
@@ -150,6 +161,7 @@ cases where thumbnails are generated for web preview purposes. For details look 
 #### options.imageMagick
 
 Type: `Boolean`
+
 Default value: `false`
 
 Set to `true` when using ImageMagick instead of GraphicsMagick.
@@ -157,6 +169,7 @@ Set to `true` when using ImageMagick instead of GraphicsMagick.
 ### options.background
 
 Type: `String`
+
 Possible values: `none` to keep transparency, `beige` to set beige background, `#888` for gray.
 
 Define background color (default is white), for example when converting SVG images to PNGs.
@@ -165,6 +178,7 @@ See [gm background documentation](http://www.graphicsmagick.org/GraphicsMagick.h
 ### options.flatten
 
 Type: `Boolean`
+
 Default value: `false`
 
 Combines image layers into one. Can be used for layered formats such as PNG. See [gm flatten documentation](http://www.graphicsmagick.org/GraphicsMagick.html#details-flatten).
