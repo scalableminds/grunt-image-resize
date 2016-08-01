@@ -134,6 +134,11 @@ resize("test/fixtures/hamburg.jpg", "noProfile", {
   noProfile: true
 });
 
+resize("test/fixtures/wikipedia.png", "flatten", {
+  format: "jpg",
+  flatten: true
+});
+
 gulp.task("image_resize", resizeTasks);
 
 gulp.task("test", function(callback) {

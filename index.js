@@ -21,7 +21,8 @@ module.exports = function imageResizer(_options) {
     noProfile   : false,
     sharpen     : false,
     imageMagick : false,
-    format      : null
+    format      : null,
+    flatten     : false
   });
 
   return gm(function(gmfile, done) {
@@ -95,6 +96,10 @@ module.exports = function imageResizer(_options) {
         if (options.sharpen) {
           options.sharpen = (typeof options.sharpen === 'string') ?  options.sharpen : '1.5x1+0.7+0.02';
           gmfile = gmfile.unsharp(options.sharpen);
+        }
+
+        if (options.flatten) {
+          gmfile = gmfile.flatten();
         }
 
         if (options.background) {

@@ -173,3 +173,7 @@ describe("noProfile", function () {
     });
   });
 });
+
+describe("flatten", function () {
+  it("should flatten the wikipedia image", createTests("flatten", "wikipedia.jpg"));
+});
