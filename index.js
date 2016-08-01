@@ -21,7 +21,8 @@ module.exports = function imageResizer(_options) {
     noProfile   : false,
     sharpen     : false,
     imageMagick : false,
-    format      : null
+    format      : null,
+    flatten     : false
   });
 
   return gm(function(gmfile, done) {
