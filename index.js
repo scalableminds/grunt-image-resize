@@ -112,6 +112,8 @@ module.exports = function imageResizer(_options) {
         }
         console.log('----------  ----------')
         console.log('Processing ', file_name);
+        console.log('Default dimensions: ', gmfile.data.size.width + 'x' +  gmfile.data.size.height);
+        console.log('Target dimensions: ', options.width + 'x' + options.height);
         callback(null, gmfile);
       }
 
