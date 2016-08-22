@@ -36,6 +36,7 @@ module.exports = function imageResizer(_options) {
       function (size, callback) {
 
         var options = JSON.parse(JSON.stringify(_options)); // fix: we must make a copy, because we will change it!
+        var file_name = _.last(gmfile.source.split('/'));
 
         if (options.filter != null) {
           gmfile = gmfile.filter(options.filter);
@@ -109,7 +110,8 @@ module.exports = function imageResizer(_options) {
         if (options.noProfile) {
           gmfile = gmfile.noProfile();
         }
-
+        console.log('----------  ----------')
+        console.log('Processing ', file_name);
         callback(null, gmfile);
       }
 
