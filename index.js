@@ -45,9 +45,12 @@ module.exports = function imageResizer(_options) {
 
           // if upscale is not requested, restrict size
           if(!options.upscale){
-            // Math.min(undefined, 5) will return NaN, so it can stay undefined
-            options.width  = Math.min(options.width, size.width);
-            options.height = Math.min(options.height, size.height);
+            if (!isNaN(options.width)) {
+              options.width  = Math.min(options.width, size.width);
+            }
+            if (!isNaN(options.height)) {
+              options.height = Math.min(options.height, size.height);
+            }
           }
 
           // if one dimension is not set - we fill it proportionally
