@@ -147,6 +147,15 @@ and so on. If source files represent e.g. untouched camera data or images optimi
 print this may decrease image size drastically. Therefore this is probably wanted in
 cases where thumbnails are generated for web preview purposes. For details look for parameter _+profile "*"_ in the [gm profile documentation](http://www.graphicsmagick.org/GraphicsMagick.html#details-profile).
 
+#### options.interlace
+
+Type: `Boolean`  
+Default value: `false`
+
+Set to `true` to create interlaced images (scanline interlacing) from PNG, GIF or JPEG files
+(also known as "progressive" JPEG). For details look for parameter _-interlace &lt;type&gt;_ with the type value set to 
+"Line" in the [gm profile documentation](http://www.graphicsmagick.org/GraphicsMagick.html#details-interlace).
+
 #### options.imageMagick
 
 Type: `Boolean`  

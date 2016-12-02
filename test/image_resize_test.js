@@ -177,3 +177,10 @@ describe("noProfile", function () {
 describe("flatten", function () {
   it("should flatten the wikipedia image", createTests("flatten", "wikipedia.jpg"));
 });
+
+describe("interlace", function () {
+  it("should interlace Rhododendron.jpg", createTests("interlace", "Rhododendron.jpg"));
+  it("should interlace wikipedia.png", createTests("interlace", "wikipedia.png"));
+  it("should interlace plus resize Rhododendron.jpg", createTests("interlace_and_resize", "Rhododendron.jpg"));
+  it("should interlace plus resize wikipedia.png", createTests("interlace_and_resize", "wikipedia.png"));
+});

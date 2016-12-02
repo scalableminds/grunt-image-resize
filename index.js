@@ -22,7 +22,8 @@ module.exports = function imageResizer(_options) {
     sharpen     : false,
     imageMagick : false,
     format      : null,
-    flatten     : false
+    flatten     : false,
+    interlace   : false
   });
 
   return gm(function(gmfile, done) {
@@ -103,6 +104,10 @@ module.exports = function imageResizer(_options) {
 
         if (options.flatten) {
           gmfile = gmfile.flatten();
+        }
+
+        if (options.interlace) {
+          gmfile = gmfile.interlace('Line');
         }
 
         if (options.background) {

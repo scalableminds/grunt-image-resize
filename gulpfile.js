@@ -139,6 +139,21 @@ resize("test/fixtures/wikipedia.png", "flatten", {
   flatten: true
 });
 
+resize([
+  "test/fixtures/Rhododendron.jpg",
+  "test/fixtures/wikipedia.png"
+], "interlace", {
+  interlace: true
+});
+
+resize([
+  "test/fixtures/Rhododendron.jpg",
+  "test/fixtures/wikipedia.png"
+], "interlace_and_resize", {
+  width: 400,
+  interlace: true
+});
+
 gulp.task("image_resize", resizeTasks);
 
 gulp.task("test", function(callback) {
