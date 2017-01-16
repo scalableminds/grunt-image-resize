@@ -23,7 +23,8 @@ module.exports = function imageResizer(_options) {
     imageMagick : false,
     format      : null,
     flatten     : false,
-    interlace   : false
+    interlace   : false,
+    percentage  : null
   });
 
   return gm(function(gmfile, done) {
@@ -77,7 +78,7 @@ module.exports = function imageResizer(_options) {
               .crop(options.width, options.height);
           } else {
             gmfile = gmfile
-              .resize(options.width, options.height);
+              .resize(options.width, options.height, options.percentage);
           }
 
         }
