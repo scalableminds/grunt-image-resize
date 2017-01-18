@@ -153,7 +153,7 @@ Type: `Boolean`
 Default value: `false`
 
 Set to `true` to create interlaced images (scanline interlacing) from PNG, GIF or JPEG files
-(also known as "progressive" JPEG). For details look for parameter _-interlace &lt;type&gt;_ with the type value set to 
+(also known as "progressive" JPEG). For details look for parameter _-interlace &lt;type&gt;_ with the type value set to
 "Line" in the [gm profile documentation](http://www.graphicsmagick.org/GraphicsMagick.html#details-interlace).
 
 #### options.imageMagick
@@ -178,6 +178,14 @@ Default value: `false`
 
 Combines image layers into one. Can be used for layered formats such as PNG. See [gm flatten documentation](http://www.graphicsmagick.org/GraphicsMagick.html#details-flatten).
 
+### options.percentage
+
+Type: `Number`  
+Default value: `null`
+
+The value that you want the image to be scaled to.
+
+
 ## More Examples
 
 ```js
@@ -193,6 +201,15 @@ gulp.task('width', function () {
   gulp.src('test.png')
     .pipe(imageResize({
       width : 100
+    }))
+    .pipe(gulp.dest('dist'));
+});
+
+// Convert with percentage value.
+gulp.task('percentage', function() {
+  gulp.src('test.png')
+    .pipe(imageResize({
+      percentage: 50
     }))
     .pipe(gulp.dest('dist'));
 });
