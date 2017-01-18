@@ -184,3 +184,10 @@ describe("interlace", function () {
   it("should interlace plus resize Rhododendron.jpg", createTests("interlace_and_resize", "Rhododendron.jpg"));
   it("should interlace plus resize wikipedia.png", createTests("interlace_and_resize", "wikipedia.png"));
 });
+
+describe("percentage", function () {
+  it("should resize gnu.jpg from percentage", createTests("percentage", "gnu.jpg"));
+  it("should resize Rhododendron.jpg from percentage", createTests("percentage", "Rhododendron.jpg"));
+  it("should resize wikipedia.png from percentage", createTests("percentage", "wikipedia.png"));
+  it("should resize TeslaTurbine.png from percentage", createTests("percentage", "TeslaTurbine.png"));
+});
