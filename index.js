@@ -43,7 +43,7 @@ module.exports = function imageResizer(_options) {
           gmfile = gmfile.filter(options.filter);
         }
 
-        if ((options.height != null || options.width != null) && options.percentage === null) {
+        if (options.height != null || options.width != null) {
 
           // if upscale is not requested, restrict size
           if(!options.upscale){
@@ -81,7 +81,7 @@ module.exports = function imageResizer(_options) {
               .resize(options.width, options.height);
           }
 
-        } else if (options.percentage !== null) {
+        } else if (options.percentage) {
           gmfile = gmfile
             .resize(options.percentage, null, '%');
         }
