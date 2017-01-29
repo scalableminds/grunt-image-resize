@@ -78,7 +78,7 @@ module.exports = function imageResizer(_options) {
               .crop(options.width, options.height);
           } else {
             gmfile = gmfile
-              .resize(options.width, options.height, options.percentage);
+              .resize(options.width, options.height);
           }
 
         } else if (options.percentage !== null) {
