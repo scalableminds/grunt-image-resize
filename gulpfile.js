@@ -154,6 +154,15 @@ resize([
   interlace: true
 });
 
+resize([
+  "test/fixtures/gnu.jpg",
+  "test/fixtures/wikipedia.png",
+  "test/fixtures/Rhododendron.jpg",
+  "test/fixtures/TeslaTurbine.png"
+], "percentage", {
+  percentage: 50
+});
+
 gulp.task("image_resize", resizeTasks);
 
 gulp.task("test", function(callback) {
