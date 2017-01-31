@@ -163,7 +163,7 @@ Default value: `false`
 
 Set to `true` when using ImageMagick instead of GraphicsMagick.
 
-### options.background
+#### options.background
 
 Type: `String`  
 Possible values: `none` to keep transparency, `beige` to set beige background, `#888` for gray.
@@ -171,14 +171,14 @@ Possible values: `none` to keep transparency, `beige` to set beige background, `
 Define background color (default is white), for example when converting SVG images to PNGs.
 See [gm background documentation](http://www.graphicsmagick.org/GraphicsMagick.html#details-background)
 
-### options.flatten
+#### options.flatten
 
 Type: `Boolean`  
 Default value: `false`
 
 Combines image layers into one. Can be used for layered formats such as PNG. See [gm flatten documentation](http://www.graphicsmagick.org/GraphicsMagick.html#details-flatten).
 
-### options.percentage
+#### options.percentage
 
 Type: `Number`  
 Default value: `null`
