@@ -228,7 +228,7 @@ gulp.task("parallel", function () {
       imageResize({ width : 100 }),
       os.cpus().length
     ))
-    .pipe(gulp.dest("dist"));˘
+    .pipe(gulp.dest("dist"));
 });
 ```
 
