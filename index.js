@@ -16,6 +16,7 @@ module.exports = function imageResizer(_options) {
     overwrite   : true,
     upscale     : false,
     crop        : false,
+    cover       : false,
     gravity     : "Center",
     quality     : 1,
     noProfile   : false,
@@ -76,6 +77,9 @@ module.exports = function imageResizer(_options) {
               .resize(options.width, options.height, "^")
               .gravity(options.gravity)
               .crop(options.width, options.height);
+          } else if (options.cover) {
+            gmfile = gmfile
+              .resize(options.width, options.height, "^")
           } else {
             gmfile = gmfile
               .resize(options.width, options.height);
