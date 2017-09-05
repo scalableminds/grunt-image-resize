@@ -191,3 +191,8 @@ describe("percentage", function () {
   it("should resize wikipedia.png from percentage", createTests("percentage", "wikipedia.png"));
   it("should resize TeslaTurbine.png from percentage", createTests("percentage", "TeslaTurbine.png"));
 });
+
+describe("cover", function() {
+  it("should resize Rhododendron.jpg to 200px height", createTests("cover", "Rhododendron.jpg"));
+  it("should resize TeslaTurbine.png to 200px width", createTests("cover", "TeslaTurbine.png"));
+});

@@ -163,6 +163,15 @@ resize([
   percentage: 50
 });
 
+resize([
+  "test/fixtures/Rhododendron.jpg",
+  "test/fixtures/TeslaTurbine.png"
+], "cover", {
+  width: 200,
+  height: 200,
+  cover: true
+});
+
 gulp.task("image_resize", resizeTasks);
 
 gulp.task("test", function(callback) {

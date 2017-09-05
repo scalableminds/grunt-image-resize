@@ -186,6 +186,14 @@ Default value: `null`
 The value that you want the image to be scaled to.
 
 
+#### options.cover
+
+Type: `Boolean`
+Default value: `false`
+
+Determines whether images should cover the area specified by the width and height options. If set to `true`, the resized images will maintain aspect ratio by overflowing their dimensions as necessary, rather than treating them as maximum-size constraints.
+
+
 ## More Examples
 
 ```js
