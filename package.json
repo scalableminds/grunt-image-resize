@@ -17,6 +17,7 @@
   },
   "license": "MIT",
   "main": "index.js",
+  "types": "index.d.ts",
   "engines": {
     "node": ">= 0.10.0"
   },
@@ -36,9 +37,11 @@
     "gulpplugin"
   ],
   "dependencies": {
+    "@types/gm": "^1.17.33",
+    "@types/node": "^9.6.2",
     "async": "~0.2.8",
     "gulp-gm": "~0.0.3",
-    "through2": "~0.4.1",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "through2": "~0.4.1"
   }
 }
