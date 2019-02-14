@@ -26,6 +26,7 @@ module.exports = function imageResizer(_options) {
     interlace    : false,
     percentage   : null,
     cover        : false,
+    checkPortrait: false,
   });
 
   return gm(function(gmfile, done) {
