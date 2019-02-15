@@ -194,6 +194,21 @@ Default value: `false`
 Determines whether images should cover the area specified by the width and height options. If set to `true`, the resized images will maintain aspect ratio by overflowing their dimensions as necessary, rather than treating them as maximum-size constraints.
 
 
+#### options.checkPortrait
+
+Type: `Boolean`
+Default value: `false`
+
+Gives an option to check if the image is Portrait. If it is Portrait, you can assign another option `portraitWidth` to assign a custom width for portrait images.
+
+#### options.portraitWidth
+
+Type: `Number`
+Default value: `null`
+
+An option to allow you to choose a custom width for Portrait images. You need the `checkPortrait` option to be set to `true` for this to work.
+
+
 ## More Examples
 
 ```js
