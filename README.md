@@ -236,7 +236,9 @@ gulp.task("parallel", () =>
   gulp
     .src("src/**/*.{jpg,png}")
     .pipe(parallel(
-      imageResize({ width : 100 }),
+      imageResize({
+        width : 100
+      }),
       os.cpus().length
     ))
     .pipe(gulp.dest("dist")));
@@ -250,7 +252,9 @@ gulp.task("changed", () =>
   gulp
     .src("src/**/*.{jpg,png}")
     .pipe(changed("dist"))
-    .pipe(imageResize({ width : 100 }))
+    .pipe(imageResize({
+      width : 100
+    }))
     .pipe(gulp.dest("dist")));
 ```
 
@@ -261,7 +265,9 @@ const rename = require("gulp-rename");
 gulp.task("suffix", () =>
   gulp
     .src("src/**/*.{jpg,png}")
-    .pipe(imageResize({ width : 100 }))
+    .pipe(imageResize({
+      width : 100
+    }))
     .pipe(rename(function (path) {
       path.basename += "-thumbnail";
      }))
