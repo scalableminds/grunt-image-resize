@@ -39,19 +39,19 @@ Confirm that ImageMagick is properly set up by executing `convert -help` in a te
 ## Example
 
 ```js
-var gulp = require('gulp');
-var imageResize = require('gulp-image-resize');
+const gulp = require('gulp');
+const imageResize = require('gulp-image-resize');
 
-gulp.task('default', function () {
-  gulp.src('test.png')
+gulp.task('default', () => 
+  gulp
+    .src('test.png')
     .pipe(imageResize({
       width : 100,
       height : 100,
       crop : true,
       upscale : false
     }))
-    .pipe(gulp.dest('dist'));
-});
+    .pipe(gulp.dest('dist')));
 ```
 
 ## API
@@ -198,70 +198,80 @@ Determines whether images should cover the area specified by the width and heigh
 
 ```js
 // Converting from png to jpeg. No resizing.
-gulp.task('convert_png', function () {
-  return gulp.src('test.png')
-    .pipe(imageResize({ format : 'jpeg' }))
-    .pipe(gulp.dest('dist'));
-});
+gulp.task('convert_png', () => 
+  gulp
+    .src('test.png')
+    .pipe(imageResize({
+      format : 'jpeg'
+     }))
+    .pipe(gulp.dest('dist')));
 
 // Only specify one dimension. Output image won't exceed this value.
-gulp.task('width', function () {
-  gulp.src('test.png')
+gulp.task('width', () => 
+  gulp
+    .src('test.png')
     .pipe(imageResize({
       width : 100
     }))
-    .pipe(gulp.dest('dist'));
-});
+    .pipe(gulp.dest('dist')));
 
 // Convert with percentage value.
-gulp.task('percentage', function() {
-  gulp.src('test.png')
+gulp.task('percentage', () =>
+  gulp
+    .src('test.png')
     .pipe(imageResize({
       percentage: 50
     }))
-    .pipe(gulp.dest('dist'));
-});
+    .pipe(gulp.dest('dist')));
 ```
 
 ## Recommended modules
 
 * [concurrent-transform](https://github.com/segmentio/concurrent-transform): parallelize image resizing
 ```js
-var parallel = require("concurrent-transform");
-var os = require("os");
+const parallel = require("concurrent-transform");
+const os = require("os");
 
-gulp.task("parallel", function () {
-  gulp.src("src/**/*.{jpg,png}")
+gulp.task("parallel", () => 
+  gulp
+    .src("src/**/*.{jpg,png}")
     .pipe(parallel(
-      imageResize({ width : 100 }),
+      imageResize({
+        width : 100
+      }),
       os.cpus().length
     ))
-    .pipe(gulp.dest("dist"));
-});
+    .pipe(gulp.dest("dist")));
 ```
 
 * [gulp-changed](https://www.npmjs.org/package/gulp-changed/): only resize changed images
 ```js
-var changed = require("gulp-changed");
+const changed = require("gulp-changed");
 
-gulp.task("changed", function () {
-  gulp.src("src/**/*.{jpg,png}")
+gulp.task("changed", () =>
+  gulp
+    .src("src/**/*.{jpg,png}")
     .pipe(changed("dist"))
-    .pipe(imageResize({ width : 100 }))
-    .pipe(gulp.dest("dist"));
-});
+    .pipe(imageResize({
+      width : 100
+    }))
+    .pipe(gulp.dest("dist")));
 ```
 
 * [gulp-rename](https://www.npmjs.org/package/gulp-rename/): add a suffix or prefix
 ```js
-var rename = require("gulp-rename");
+const rename = require("gulp-rename");
 
-gulp.task("suffix", function () {
-  gulp.src("src/**/*.{jpg,png}")
-    .pipe(imageResize({ width : 100 }))
-    .pipe(rename(function (path) { path.basename += "-thumbnail"; }))
-    .pipe(gulp.dest("dist"));
-});
+gulp.task("suffix", () =>
+  gulp
+    .src("src/**/*.{jpg,png}")
+    .pipe(imageResize({
+      width : 100
+    }))
+    .pipe(rename(function (path) {
+      path.basename += "-thumbnail";
+     }))
+    .pipe(gulp.dest("dist")));
 ```
 
 ## Tests
