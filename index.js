@@ -13,19 +13,20 @@ var _           = require("lodash");
 module.exports = function imageResizer(_options) {
 
   _options = _.defaults(_options, {
-    overwrite   : true,
-    upscale     : false,
-    crop        : false,
-    gravity     : "Center",
-    quality     : 1,
-    noProfile   : false,
-    sharpen     : false,
-    imageMagick : false,
-    format      : null,
-    flatten     : false,
-    interlace   : false,
-    percentage  : null,
-    cover       : false
+    overwrite    : true,
+    upscale      : false,
+    crop         : false,
+    gravity      : "Center",
+    quality      : 1,
+    noProfile    : false,
+    sharpen      : false,
+    imageMagick  : false,
+    format       : null,
+    flatten      : false,
+    interlace    : false,
+    percentage   : null,
+    cover        : false,
+    checkPortrait: false,
   });
 
   return gm(function(gmfile, done) {
@@ -69,6 +70,14 @@ module.exports = function imageResizer(_options) {
               options.width = size.width;
             } else {
               options.width = Math.ceil((options.height / size.height) * size.width);
+            }
+          }
+
+          // added an option to check if the image is a portrait.
+          // IF it is portrait, we can set a custom max width size if required for it separately.
+          if(options.checkPortrait === true) {
+            if(size.height > size.width) {
+              options.width = options.portraitWidth;
             }
           }
 
